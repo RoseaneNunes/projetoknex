@@ -73,7 +73,7 @@ const BadForm = () => {
     const chavePix = "rosenesje2014@gmail.com"; // Insira a chave Pix aqui
     const nomeRecebedor = "Roseane Nunes Dos Anjos";
     const cidadeRecebedor = "São Jose Do egito";
-    const [valorTransacao, setValorTransacao] = useState(0.00); // Estado para armazenar o valor da transação
+    const [valorTransacao, setValorTransacao] = useState(5.00); // Estado para armazenar o valor da transação
     const identificador = "12345678"; // Identificador único
   
     // Gera o payload do Pix com base nas informações fornecidas
@@ -93,7 +93,7 @@ const BadForm = () => {
     name: "",
     email: "",
     telefone: "",
-    valor: 0,
+    valor: valorTransacao,
     Frequencia: "0",
     Mensagem: "",
    
@@ -149,13 +149,6 @@ const BadForm = () => {
     } else {
       setErrors((prev) => ({ ...prev, name: null }));
     }
-    
-    if (isEmpty(valorTransacao)) {
-      setErrors((prev) => ({ ...prev, valor: "valor não valido" }));
-      formIsValid = false;
-    } else {
-      setErrors((prev) => ({ ...prev, valor: null }));
-    }
 
     if (userForm.Frequencia === "0") {
       setErrors((prev) => ({ ...prev, Frequencia: "Frequencia Não Valida." }));
@@ -181,7 +174,7 @@ const BadForm = () => {
            className={errors?.name && "input-error"}
            type="text"
            placeholder="Seu nome"
-           value={userForm.name}
+           value={useState.valor}
            minLength={3}
            onChange={(e) =>
              setUserForm((prev) => ({ ...prev, name: e.target.value }))
@@ -261,9 +254,7 @@ const BadForm = () => {
 
             onChange={(e) => setValorTransacao(parseFloat(e.target.value) || 0)} // Atualiza o estado
           />
-          {errors?.valor && (
-            <p className="error-message">{errors?.valor}</p>
-          )}
+          
         </div>
       )}
 
